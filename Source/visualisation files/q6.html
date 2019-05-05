@@ -1,0 +1,54 @@
+
+<!-- Styles -->
+<style>
+    #chartdiv {
+        width		: 100%;
+        height		: 500px;
+        font-size	: 11px;
+    }
+</style>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>
+
+<!-- Chart code -->
+<script>
+
+    AmCharts.loadFile( "./q6.csv", {}, function( response ) {
+        var data = AmCharts.parseCSV(response, {
+            "useColumnNames": true
+        });
+
+        var chart = AmCharts.makeChart("chartdiv", {
+            "type": "pie",
+            "theme": "light",
+	    "titles": [{
+                "text": "Number of Tweets based on day",
+                "size": 15
+            }],
+            "innerRadius": "40%",
+            "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
+            "dataProvider": data,
+            "balloonText": "[[value]]",
+            "valueField": "count",
+            "titleField": "day",
+            "balloon": {
+                "drop": true,
+                "adjustBorderColor": false,
+                "color": "#FFFFFF",
+                "fontSize": 16
+            },
+            "export": {
+                "enabled": true
+            }
+        });
+    });
+</script>
+
+<!-- HTML -->
+<div id="chartdiv"></div>

@@ -1,0 +1,49 @@
+<!-- Styles -->
+<style>
+    #chartdiv {
+        width		: 100%;
+        height		: 500px;
+        font-size	: 11px;
+    }
+</style>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>
+
+<!-- Chart code -->
+<script>
+
+    AmCharts.loadFile( "./q16.csv", {}, function( response ) {
+        var data = AmCharts.parseCSV(response, {
+            "useColumnNames": true
+        });
+
+        var chart = AmCharts.makeChart("chartdiv", {
+            "type": "pie",
+            "theme": "light",
+	    "titles": [{
+                "text": "User who tweeted most on which Sport",
+                "size": 15
+            }],
+            "dataProvider":data,
+            "titleField": "UserName, sportType",
+            "valueField": "count",
+            "labelRadius": 5,
+
+            "radius": "42%",
+            "innerRadius": "60%",
+            "labelText": "[[title]]",
+            "export": {
+                "enabled": true
+            }
+        });
+    });
+</script>
+
+<!-- HTML -->
+<div id="chartdiv"></div>
